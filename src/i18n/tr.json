@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "menu": "Menü",
+    "language": "Dil",
+    "allergensLink": "Alerjenler"
+  },
+  "home": {
+    "backToMenu": "Menüye dön"
+  },
+  "category": {
+    "empty": "Bu kategoride henüz ürün yok."
+  },
+  "allergensPage": {
+    "title": "Alerjenler & etiketler",
+    "empty": "Henüz alerjen bilgisi eklenmedi."
+  },
+  "admin": {
+    "login": {
+      "title": "Yönetici girişi",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş yap",
+      "error": "E-posta veya şifre hatalı."
+    },
+    "nav": {
+      "categories": "Kategoriler",
+      "allergens": "Alerjenler & etiketler",
+      "settings": "Ayarlar",
+      "logout": "Çıkış yap",
+      "viewSite": "Siteyi görüntüle"
+    },
+    "categories": {
+      "title": "Kategoriler",
+      "add": "Kategori ekle",
+      "edit": "Kategoriyi düzenle",
+      "items": "Ürünler",
+      "subCategories": "Alt kategoriler",
+      "delete": "Sil",
+      "deleteConfirm": "Bu kategori ve tüm ürünleri silinsin mi?",
+      "active": "Aktif",
+      "inactive": "Gizli",
+      "empty": "Henüz kategori yok. İlkini ekleyin."
+    },
+    "items": {
+      "title": "Ürünler",
+      "add": "Ürün ekle",
+      "edit": "Ürünü düzenle",
+      "delete": "Sil",
+      "deleteConfirm": "Bu ürün silinsin mi?",
+      "price": "Fiyat",
+      "allergens": "Alerjenler & etiketler",
+      "active": "Aktif",
+      "inactive": "Gizli",
+      "empty": "Bu kategoride henüz ürün yok.",
+      "backToCategories": "Kategorilere dön"
+    },
+    "allergens": {
+      "title": "Alerjenler & etiketler",
+      "add": "Etiket ekle",
+      "edit": "Etiketi düzenle",
+      "delete": "Sil",
+      "empty": "Henüz etiket yok."
+    },
+    "settings": {
+      "title": "Ayarlar",
+      "name": "Restoran adı",
+      "subtitle": "Alt başlık",
+      "logo": "Logo",
+      "currency": "Para birimi",
+      "save": "Değişiklikleri kaydet",
+      "saved": "Kaydedildi."
+    },
+    "form": {
+      "nameEn": "İsim (İngilizce)",
+      "nameTr": "İsim (Türkçe)",
+      "descriptionEn": "Açıklama (İngilizce)",
+      "descriptionTr": "Açıklama (Türkçe)",
+      "icon": "Simge",
+      "image": "Görsel",
+      "uploadImage": "Görsel yükle",
+      "uploading": "Yükleniyor…",
+      "save": "Kaydet",
+      "cancel": "Vazgeç"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "language": "Language",
+    "allergensLink": "Allergens"
+  },
+  "home": {
+    "backToMenu": "Back to menu"
+  },
+  "category": {
+    "empty": "No items in this category yet."
+  },
+  "allergensPage": {
+    "title": "Allergens & dietary tags",
+    "empty": "No allergen information available yet."
+  },
+  "admin": {
+    "login": {
+      "title": "Admin sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "error": "Invalid email or password."
+    },
+    "nav": {
+      "categories": "Categories",
+      "allergens": "Allergens & tags",
+      "settings": "Settings",
+      "logout": "Log out",
+      "viewSite": "View site"
+    },
+    "categories": {
+      "title": "Categories",
+      "add": "Add category",
+      "edit": "Edit category",
+      "items": "Items",
+      "subCategories": "Sub-categories",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this category and all its items?",
+      "active": "Active",
+      "inactive": "Hidden",
+      "empty": "No categories yet. Add your first one."
+    },
+    "items": {
+      "title": "Items",
+      "add": "Add item",
+      "edit": "Edit item",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this item?",
+      "price": "Price",
+      "allergens": "Allergens & tags",
+      "active": "Active",
+      "inactive": "Hidden",
+      "empty": "No items in this category yet.",
+      "backToCategories": "Back to categories"
+    },
+    "allergens": {
+      "title": "Allergens & tags",
+      "add": "Add tag",
+      "edit": "Edit tag",
+      "delete": "Delete",
+      "empty": "No tags yet."
+    },
+    "settings": {
+      "title": "Settings",
+      "name": "Restaurant name",
+      "subtitle": "Subtitle",
+      "logo": "Logo",
+      "currency": "Currency",
+      "save": "Save changes",
+      "saved": "Saved."
+    },
+    "form": {
+      "nameEn": "Name (English)",
+      "nameTr": "Name (Turkish)",
+      "descriptionEn": "Description (English)",
+      "descriptionTr": "Description (Turkish)",
+      "icon": "Icon",
+      "image": "Image",
+      "uploadImage": "Upload image",
+      "uploading": "Uploading…",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  }
+}

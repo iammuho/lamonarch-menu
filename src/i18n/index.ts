@@ -5,10 +5,16 @@ import type { Locale } from "@/types/menu"
 
 const STORAGE_KEY = "menu-locale"
 
+function detectBrowserLocale(): Locale {
+  const languages = navigator.languages ?? [navigator.language]
+  const isTurkish = languages.some((lang) => lang.toLowerCase().startsWith("tr"))
+  return isTurkish ? "tr" : "en"
+}
+
 function getInitialLocale(): Locale {
   const stored = localStorage.getItem(STORAGE_KEY)
   if (stored === "en" || stored === "tr") return stored
-  return "en"
+  return detectBrowserLocale()
 }
 
 export const i18n = createI18n({

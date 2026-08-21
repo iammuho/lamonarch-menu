@@ -87,7 +87,13 @@ async function remove(id: string) {
       <template #item="{ element }: { element: AdminAllergen }">
         <div class="flex items-center gap-3 rounded border border-ink/10 bg-cream px-4 py-3">
           <GripVertical :size="18" class="drag-handle cursor-grab text-ink/30" />
-          <component :is="resolveIcon(element.icon_key)" :size="18" class="text-gold" />
+          <span
+            v-if="element.image_url"
+            class="h-6 w-6 shrink-0 overflow-hidden rounded-full bg-ink/10"
+          >
+            <img :src="element.image_url" :alt="element.labelTr" class="h-full w-full object-cover" />
+          </span>
+          <component v-else :is="resolveIcon(element.icon_key)" :size="18" class="text-gold" />
           <span class="flex-1 text-sm font-medium">{{ element.labelTr }}</span>
           <button
             type="button"

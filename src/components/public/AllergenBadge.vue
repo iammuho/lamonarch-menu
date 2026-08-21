@@ -8,8 +8,14 @@ defineProps<{ allergen: Allergen }>()
 <template>
   <span
     :title="allergen.label"
-    class="flex h-7 w-7 items-center justify-center rounded-full bg-ink text-gold"
+    class="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-ink text-gold"
   >
-    <component :is="resolveIcon(allergen.icon_key)" :size="14" />
+    <img
+      v-if="allergen.image_url"
+      :src="allergen.image_url"
+      :alt="allergen.label"
+      class="h-full w-full object-cover"
+    />
+    <component :is="resolveIcon(allergen.icon_key)" v-else :size="14" />
   </span>
 </template>

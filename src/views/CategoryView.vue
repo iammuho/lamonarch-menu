@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed, ref, toRef, watch } from "vue"
-import { ChevronLeft } from "@lucide/vue"
+import { ChevronLeft, ChevronRight } from "@lucide/vue"
 import { useI18n } from "vue-i18n"
 import ItemCard from "@/components/public/ItemCard.vue"
 import SubCategoryCard from "@/components/public/SubCategoryCard.vue"
+import LanguageSwitcher from "@/components/layout/LanguageSwitcher.vue"
 import { useCategoryPage } from "@/composables/useCategoryPage"
 import { useItemsByCategoryId } from "@/composables/useItemsByCategoryId"
 import { useRestaurantSettings } from "@/composables/useRestaurantSettings"
 import { useLocaleStore } from "@/stores/locale"
+import { isRtl } from "@/i18n"
 
 const props = defineProps<{ slug: string }>()
 const { t } = useI18n()
@@ -17,9 +19,8 @@ const { category, subCategories, items, isLoading, error } = useCategoryPage(toR
 const { settings } = useRestaurantSettings()
 const currency = computed(() => settings.value?.currency ?? "TRY")
 
-function toggleLocale() {
-  localeStore.switchTo(localeStore.locale === "tr" ? "en" : "tr")
-}
+// In RTL, "back" conventionally points the other way.
+const backIcon = computed(() => (isRtl(localeStore.locale) ? ChevronRight : ChevronLeft))
 
 // When the category is a "hub" (has sub-categories), the first one is shown
 // by default and switching between them happens in place, as tabs — no navigation.
@@ -53,18 +54,12 @@ const {
       <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/60 to-transparent" />
       <div class="relative z-10 mx-auto flex w-full max-w-5xl items-center gap-3 px-4 sm:px-6">
         <RouterLink :to="{ name: 'home' }" class="text-gold" :aria-label="t('home.backToMenu')">
-          <ChevronLeft :size="24" />
+          <component :is="backIcon" :size="24" />
         </RouterLink>
         <h1 class="flex-1 text-2xl font-bold uppercase tracking-widest text-cream">
           {{ category?.name }}
         </h1>
-        <button
-          type="button"
-          class="cursor-pointer text-xs font-semibold uppercase tracking-widest text-gold hover:text-cream"
-          @click="toggleLocale"
-        >
-          {{ localeStore.locale === "tr" ? "ENGLISH" : "TÜRKÇE" }}
-        </button>
+        <LanguageSwitcher variant="bar" />
       </div>
     </header>
 

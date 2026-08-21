@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 import { useLocaleStore } from "@/stores/locale"
-import { i18n } from "@/i18n"
+import { i18n, applyDirection } from "@/i18n"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -66,9 +66,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  // The admin UI is always Turkish, regardless of the public menu's language toggle.
+  // The admin UI is always Turkish (LTR), regardless of the public menu's language toggle.
   const localeStore = useLocaleStore()
-  i18n.global.locale.value = to.path.startsWith("/admin") ? "tr" : localeStore.locale
+  const locale = to.path.startsWith("/admin") ? "tr" : localeStore.locale
+  i18n.global.locale.value = locale
+  applyDirection(locale)
 })
 
 router.beforeEach(async (to) => {

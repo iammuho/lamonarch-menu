@@ -2,15 +2,10 @@
 import { Crown } from "@lucide/vue"
 import { useI18n } from "vue-i18n"
 import { useRestaurantSettings } from "@/composables/useRestaurantSettings"
-import { useLocaleStore } from "@/stores/locale"
+import LanguageSwitcher from "./LanguageSwitcher.vue"
 
 const { settings } = useRestaurantSettings()
-const localeStore = useLocaleStore()
 const { t } = useI18n()
-
-function toggleLocale() {
-  localeStore.switchTo(localeStore.locale === "tr" ? "en" : "tr")
-}
 </script>
 
 <template>
@@ -48,9 +43,7 @@ function toggleLocale() {
         <RouterLink :to="{ name: 'allergens' }" class="hover:text-ink">
           {{ t("nav.allergensLink") }}
         </RouterLink>
-        <button type="button" class="cursor-pointer hover:text-ink" @click="toggleLocale">
-          {{ localeStore.locale === "tr" ? "ENGLISH" : "TÜRKÇE" }}
-        </button>
+        <LanguageSwitcher />
       </nav>
     </div>
   </header>

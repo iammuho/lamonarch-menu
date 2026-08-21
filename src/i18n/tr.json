@@ -73,8 +73,10 @@
     "form": {
       "nameEn": "İsim (İngilizce)",
       "nameTr": "İsim (Türkçe)",
+      "nameAr": "İsim (Arapça)",
       "descriptionEn": "Açıklama (İngilizce)",
       "descriptionTr": "Açıklama (Türkçe)",
+      "descriptionAr": "Açıklama (Arapça)",
       "icon": "Simge",
       "image": "Görsel",
       "uploadImage": "Görsel yükle",

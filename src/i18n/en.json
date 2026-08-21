@@ -73,8 +73,10 @@
     "form": {
       "nameEn": "Name (English)",
       "nameTr": "Name (Turkish)",
+      "nameAr": "Name (Arabic)",
       "descriptionEn": "Description (English)",
       "descriptionTr": "Description (Turkish)",
+      "descriptionAr": "Description (Arabic)",
       "icon": "Icon",
       "image": "Image",
       "uploadImage": "Upload image",

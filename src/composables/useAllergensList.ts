@@ -6,6 +6,7 @@ import { useLocaleStore } from "@/stores/locale"
 interface AllergenQueryRow {
   id: string
   icon_key: string
+  image_url: string | null
   sort_order: number
   allergen_translations: { label: string }[]
 }
@@ -22,7 +23,7 @@ export function useAllergensList() {
 
     const { data, error: fetchError } = await supabase
       .from("allergens")
-      .select("id, icon_key, sort_order, allergen_translations!inner(label)")
+      .select("id, icon_key, image_url, sort_order, allergen_translations!inner(label)")
       .eq("allergen_translations.locale", localeStore.locale)
       .order("sort_order")
 
@@ -33,6 +34,7 @@ export function useAllergensList() {
       allergens.value = (data as AllergenQueryRow[]).map((row) => ({
         id: row.id,
         icon_key: row.icon_key,
+        image_url: row.image_url,
         sort_order: row.sort_order,
         label: row.allergen_translations[0]?.label ?? "",
       }))

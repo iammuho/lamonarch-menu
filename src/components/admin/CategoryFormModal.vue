@@ -16,6 +16,7 @@ const imageUrl = ref<string | null>(null)
 const isActive = ref(true)
 const nameEn = ref("")
 const nameTr = ref("")
+const nameAr = ref("")
 const isSaving = ref(false)
 const error = ref("")
 
@@ -51,6 +52,7 @@ onMounted(async () => {
   if (translations) {
     nameEn.value = translations.find((row) => row.locale === "en")?.name ?? ""
     nameTr.value = translations.find((row) => row.locale === "tr")?.name ?? ""
+    nameAr.value = translations.find((row) => row.locale === "ar")?.name ?? ""
   }
 })
 
@@ -107,6 +109,7 @@ async function onSubmit() {
         [
           { category_id: categoryId, locale: "en", name: nameEn.value },
           { category_id: categoryId, locale: "tr", name: nameTr.value },
+          { category_id: categoryId, locale: "ar", name: nameAr.value },
         ],
         { onConflict: "category_id,locale" },
       )
@@ -132,6 +135,15 @@ async function onSubmit() {
       <label class="flex flex-col gap-1 text-sm font-medium">
         {{ t("admin.form.nameTr") }}
         <input v-model="nameTr" required class="rounded border border-ink/20 px-3 py-2 text-sm" />
+      </label>
+      <label class="flex flex-col gap-1 text-sm font-medium">
+        {{ t("admin.form.nameAr") }}
+        <input
+          v-model="nameAr"
+          required
+          dir="rtl"
+          class="rounded border border-ink/20 px-3 py-2 text-sm"
+        />
       </label>
 
       <div class="flex flex-col gap-1 text-sm font-medium">

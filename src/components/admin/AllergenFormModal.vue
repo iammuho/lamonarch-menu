@@ -4,14 +4,17 @@ import { useI18n } from "vue-i18n"
 import { supabase } from "@/lib/supabase"
 import Modal from "./Modal.vue"
 import IconPicker from "./IconPicker.vue"
+import ImageUploader from "./ImageUploader.vue"
 
 const props = defineProps<{ allergenId: string | null }>()
 const emit = defineEmits<{ close: []; saved: [] }>()
 const { t } = useI18n()
 
 const iconKey = ref("wheat")
+const imageUrl = ref<string | null>(null)
 const labelEn = ref("")
 const labelTr = ref("")
+const labelAr = ref("")
 const isSaving = ref(false)
 const error = ref("")
 
@@ -19,14 +22,18 @@ onMounted(async () => {
   if (!props.allergenId) return
 
   const [{ data: allergen }, { data: translations }] = await Promise.all([
-    supabase.from("allergens").select("icon_key").eq("id", props.allergenId).single(),
+    supabase.from("allergens").select("icon_key, image_url").eq("id", props.allergenId).single(),
     supabase.from("allergen_translations").select("locale, label").eq("allergen_id", props.allergenId),
   ])
 
-  if (allergen) iconKey.value = allergen.icon_key
+  if (allergen) {
+    iconKey.value = allergen.icon_key
+    imageUrl.value = allergen.image_url
+  }
   if (translations) {
     labelEn.value = translations.find((row) => row.locale === "en")?.label ?? ""
     labelTr.value = translations.find((row) => row.locale === "tr")?.label ?? ""
+    labelAr.value = translations.find((row) => row.locale === "ar")?.label ?? ""
   }
 })
 
@@ -40,7 +47,7 @@ async function onSubmit() {
     if (allergenId) {
       const { error: updateError } = await supabase
         .from("allergens")
-        .update({ icon_key: iconKey.value })
+        .update({ icon_key: iconKey.value, image_url: imageUrl.value })
         .eq("id", allergenId)
       if (updateError) throw updateError
     } else {
@@ -54,7 +61,7 @@ async function onSubmit() {
 
       const { data: inserted, error: insertError } = await supabase
         .from("allergens")
-        .insert({ icon_key: iconKey.value, sort_order: nextSortOrder })
+        .insert({ icon_key: iconKey.value, image_url: imageUrl.value, sort_order: nextSortOrder })
         .select("id")
         .single()
       if (insertError) throw insertError
@@ -65,6 +72,7 @@ async function onSubmit() {
       [
         { allergen_id: allergenId, locale: "en", label: labelEn.value },
         { allergen_id: allergenId, locale: "tr", label: labelTr.value },
+        { allergen_id: allergenId, locale: "ar", label: labelAr.value },
       ],
       { onConflict: "allergen_id,locale" },
     )
@@ -91,10 +99,24 @@ async function onSubmit() {
         {{ t("admin.form.nameTr") }}
         <input v-model="labelTr" required class="rounded border border-ink/20 px-3 py-2 text-sm" />
       </label>
+      <label class="flex flex-col gap-1 text-sm font-medium">
+        {{ t("admin.form.nameAr") }}
+        <input
+          v-model="labelAr"
+          required
+          dir="rtl"
+          class="rounded border border-ink/20 px-3 py-2 text-sm"
+        />
+      </label>
 
       <div class="flex flex-col gap-1 text-sm font-medium">
         {{ t("admin.form.icon") }}
         <IconPicker v-model="iconKey" />
+      </div>
+
+      <div class="flex flex-col gap-1 text-sm font-medium">
+        {{ t("admin.form.image") }}
+        <ImageUploader v-model="imageUrl" bucket="allergen-images" />
       </div>
 
       <p v-if="error" class="text-sm text-red-600">{{ error }}</p>

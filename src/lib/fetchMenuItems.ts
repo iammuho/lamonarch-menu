@@ -13,6 +13,7 @@ interface MenuItemQueryRow {
     allergens: {
       id: string
       icon_key: string
+      image_url: string | null
       sort_order: number
       allergen_translations: { label: string }[]
     }[]
@@ -30,7 +31,7 @@ export async function fetchMenuItems(
        menu_item_translations!inner(name, description),
        menu_item_allergens(
          allergens(
-           id, icon_key, sort_order,
+           id, icon_key, image_url, sort_order,
            allergen_translations!inner(label)
          )
        )`,
@@ -58,6 +59,7 @@ export async function fetchMenuItems(
       .map((a) => ({
         id: a.id,
         icon_key: a.icon_key,
+        image_url: a.image_url,
         sort_order: a.sort_order,
         label: a.allergen_translations[0]?.label ?? "",
       })),

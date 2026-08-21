@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { ChevronRight } from "@lucide/vue"
+import { computed } from "vue"
+import { ChevronLeft, ChevronRight } from "@lucide/vue"
 import type { Category } from "@/types/menu"
+import { useLocaleStore } from "@/stores/locale"
+import { isRtl } from "@/i18n"
 
 defineProps<{ category: Category }>()
+
+const localeStore = useLocaleStore()
+const rtl = computed(() => isRtl(localeStore.locale))
 </script>
 
 <template>
@@ -26,12 +32,17 @@ defineProps<{ category: Category }>()
         class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
       />
       <div v-else class="absolute inset-0 bg-navy" />
-      <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/30 to-transparent" />
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-navy via-navy/30 to-transparent"
+        :class="rtl ? 'bg-gradient-to-l' : 'bg-gradient-to-r'"
+      />
     </div>
 
-    <ChevronRight
+    <component
+      :is="rtl ? ChevronLeft : ChevronRight"
       :size="24"
-      class="absolute right-4 top-1/2 z-20 -translate-y-1/2 text-gold sm:right-6"
+      class="absolute top-1/2 z-20 -translate-y-1/2 text-gold"
+      :class="rtl ? 'left-4 sm:left-6' : 'right-4 sm:right-6'"
     />
   </RouterLink>
 </template>

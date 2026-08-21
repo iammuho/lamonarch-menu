@@ -1,4 +1,4 @@
-export type Locale = "en" | "tr"
+export type Locale = "en" | "tr" | "ar"
 
 export interface RestaurantSettings {
   id: number
@@ -11,6 +11,7 @@ export interface RestaurantSettings {
 export interface Allergen {
   id: string
   icon_key: string
+  image_url: string | null
   sort_order: number
   label: string
 }

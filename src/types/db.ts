@@ -11,7 +11,7 @@ export interface CategoryRow {
 export interface CategoryTranslationRow {
   id: string
   category_id: string
-  locale: "en" | "tr"
+  locale: "en" | "tr" | "ar"
   name: string
 }
 
@@ -27,7 +27,7 @@ export interface MenuItemRow {
 export interface MenuItemTranslationRow {
   id: string
   menu_item_id: string
-  locale: "en" | "tr"
+  locale: "en" | "tr" | "ar"
   name: string
   description: string | null
 }
@@ -35,13 +35,14 @@ export interface MenuItemTranslationRow {
 export interface AllergenRow {
   id: string
   icon_key: string
+  image_url: string | null
   sort_order: number
 }
 
 export interface AllergenTranslationRow {
   id: string
   allergen_id: string
-  locale: "en" | "tr"
+  locale: "en" | "tr" | "ar"
   label: string
 }
 

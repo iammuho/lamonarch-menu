@@ -16,13 +16,15 @@ const price = ref<number>(0)
 const isActive = ref(true)
 const nameEn = ref("")
 const nameTr = ref("")
+const nameAr = ref("")
 const descriptionEn = ref("")
 const descriptionTr = ref("")
+const descriptionAr = ref("")
 const selectedAllergenIds = ref<Set<string>>(new Set())
 const isSaving = ref(false)
 const error = ref("")
 
-const allAllergens = ref<{ id: string; icon_key: string; label: string }[]>([])
+const allAllergens = ref<{ id: string; icon_key: string; image_url: string | null; label: string }[]>([])
 
 onMounted(async () => {
   const [{ data: allergenRows }, { data: allergenTranslations }] = await Promise.all([
@@ -38,6 +40,7 @@ onMounted(async () => {
   allAllergens.value = ((allergenRows as AllergenRow[]) ?? []).map((row) => ({
     id: row.id,
     icon_key: row.icon_key,
+    image_url: row.image_url,
     label: labelById.get(row.id) ?? row.icon_key,
   }))
 
@@ -57,8 +60,10 @@ onMounted(async () => {
   if (translations) {
     nameEn.value = translations.find((row) => row.locale === "en")?.name ?? ""
     nameTr.value = translations.find((row) => row.locale === "tr")?.name ?? ""
+    nameAr.value = translations.find((row) => row.locale === "ar")?.name ?? ""
     descriptionEn.value = translations.find((row) => row.locale === "en")?.description ?? ""
     descriptionTr.value = translations.find((row) => row.locale === "tr")?.description ?? ""
+    descriptionAr.value = translations.find((row) => row.locale === "ar")?.description ?? ""
   }
   if (links) {
     selectedAllergenIds.value = new Set(links.map((row) => row.allergen_id))
@@ -122,6 +127,12 @@ async function onSubmit() {
           name: nameTr.value,
           description: descriptionTr.value || null,
         },
+        {
+          menu_item_id: itemId,
+          locale: "ar",
+          name: nameAr.value,
+          description: descriptionAr.value || null,
+        },
       ],
       { onConflict: "menu_item_id,locale" },
     )
@@ -160,12 +171,30 @@ async function onSubmit() {
         <input v-model="nameTr" required class="rounded border border-ink/20 px-3 py-2 text-sm" />
       </label>
       <label class="flex flex-col gap-1 text-sm font-medium">
+        {{ t("admin.form.nameAr") }}
+        <input
+          v-model="nameAr"
+          required
+          dir="rtl"
+          class="rounded border border-ink/20 px-3 py-2 text-sm"
+        />
+      </label>
+      <label class="flex flex-col gap-1 text-sm font-medium">
         {{ t("admin.form.descriptionEn") }}
         <textarea v-model="descriptionEn" rows="2" class="rounded border border-ink/20 px-3 py-2 text-sm" />
       </label>
       <label class="flex flex-col gap-1 text-sm font-medium">
         {{ t("admin.form.descriptionTr") }}
         <textarea v-model="descriptionTr" rows="2" class="rounded border border-ink/20 px-3 py-2 text-sm" />
+      </label>
+      <label class="flex flex-col gap-1 text-sm font-medium">
+        {{ t("admin.form.descriptionAr") }}
+        <textarea
+          v-model="descriptionAr"
+          rows="2"
+          dir="rtl"
+          class="rounded border border-ink/20 px-3 py-2 text-sm"
+        />
       </label>
 
       <label class="flex flex-col gap-1 text-sm font-medium">
@@ -200,7 +229,13 @@ async function onSubmit() {
             "
             @click="toggleAllergen(allergen.id)"
           >
-            <component :is="resolveIcon(allergen.icon_key)" :size="14" />
+            <span
+              v-if="allergen.image_url"
+              class="h-3.5 w-3.5 overflow-hidden rounded-full bg-ink/10"
+            >
+              <img :src="allergen.image_url" :alt="allergen.label" class="h-full w-full object-cover" />
+            </span>
+            <component :is="resolveIcon(allergen.icon_key)" v-else :size="14" />
             {{ allergen.label }}
           </button>
         </div>
